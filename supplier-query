@@ -1,15 +1,16 @@
-SELECT 
+SELECT
     Suppliers.Id AS SupplierId,
     Suppliers.Name,
     Addresses.Address,
     Addresses.PostalCode,
     Addresses.City,
-    AddressTypes.AddressType
-FROM 
+    AddressTypes.AddressType,
+    Produce.Product_Name,
+    Produce.Unit_Price_Kg
+FROM
     Suppliers
-INNER JOIN 
-    SupplierAddresses ON Suppliers.Id = SupplierAddresses.SupplierId
-INNER JOIN 
-    Addresses ON SupplierAddresses.AddressId = Addresses.Id
-INNER JOIN 
-    AddressTypes ON SupplierAddresses.AddressTypeId = AddressTypes.Id;
+    INNER JOIN SupplierAddresses ON Suppliers.Id = SupplierAddresses.SupplierId
+    INNER JOIN Addresses ON SupplierAddresses.AddressId = Addresses.Id
+    INNER JOIN AddressTypes ON SupplierAddresses.AddressTypeId = AddressTypes.Id
+    INNER JOIN Produce ON Produce.SuppliersId = Suppliers.Id
+    INNER JOIN Recipes ON Recipes.Id = Produce.Id;

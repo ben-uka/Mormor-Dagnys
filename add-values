@@ -1,11 +1,20 @@
 DELETE FROM Suppliers;
+
 DELETE FROM Produce;
+
 DELETE FROM Inventory;
+
 DELETE FROM Recipes;
+
 DELETE FROM Suppliers;
+
 DELETE FROM Addresses;
+
 DELETE FROM AddressTypes;
+
 DELETE FROM SupplierAddresses;
+
+PRAGMA foreign_keys = 1;
 
 INSERT INTO
     Suppliers (Name, Contact_Person, Phone, Email)
@@ -51,8 +60,8 @@ VALUES
     ('Majsmjöl', 'Glutenfritt majsbröd'),
     ('Rågmjöl', 'Lantbröd på råg');
 
-INSERT INTO 
-    AddressTypes(AddressType)
+INSERT INTO
+    AddressTypes (AddressType)
 VALUES
     ('Leverans'),
     ('Faktura');
@@ -63,7 +72,7 @@ VALUES
     ('Kärnvägen 2', '906 28', 'Umeå'),
     ('Kvarnvägen 13', '236 33', 'Höllviken');
 
-INSERT INTO 
+INSERT INTO
     SupplierAddresses (SupplierId, AddressId, AddressTypeId)
 VALUES
     (1, 1, 2),
