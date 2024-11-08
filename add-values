@@ -1,0 +1,70 @@
+DELETE FROM Suppliers;
+DELETE FROM Produce;
+DELETE FROM Inventory;
+DELETE FROM Recipes;
+DELETE FROM Suppliers;
+DELETE FROM Addresses;
+DELETE FROM AddressTypes;
+DELETE FROM SupplierAddresses;
+
+INSERT INTO
+    Suppliers (Name, Contact_Person, Phone, Email)
+VALUES
+    (
+        'Kärna AB',
+        'Tage Grönblom',
+        '+46 10-390 81 22',
+        'info@karna.se'
+    ),
+    (
+        'Kvarnen',
+        'Rasmus Ahlander',
+        '+46 10-900 53 51',
+        'info@kvarnen.se'
+    );
+
+INSERT INTO
+    Produce (
+        SuppliersId,
+        article_number,
+        product_name,
+        unit_price_kg
+    )
+VALUES
+    (1, 'M3051', 'Rågmjöl', 15),
+    (1, 'M3140', 'Malt', 32),
+    (2, 'M3057', 'Vetemjöl', 17),
+    (2, 'G1009', 'Majsmjöl', 59);
+
+INSERT INTO
+    Inventory (quantity_in_stock, restock_point)
+VALUES
+    (175, 30),
+    (89, 30),
+    (29, 30),
+    (47, 30);
+
+INSERT INTO
+    Recipes (Ingredients, Name)
+VALUES
+    ('Rågmjöl, vetemjöl', 'Surdegsbröd'),
+    ('Majsmjöl', 'Glutenfritt majsbröd'),
+    ('Rågmjöl', 'Lantbröd på råg');
+
+INSERT INTO 
+    AddressTypes(AddressType)
+VALUES
+    ('Leverans'),
+    ('Faktura');
+
+INSERT INTO
+    Addresses (Address, PostalCode, City)
+VALUES
+    ('Kärnvägen 2', '906 28', 'Umeå'),
+    ('Kvarnvägen 13', '236 33', 'Höllviken');
+
+INSERT INTO 
+    SupplierAddresses (SupplierId, AddressId, AddressTypeId)
+VALUES
+    (1, 1, 2),
+    (2, 2, 2);

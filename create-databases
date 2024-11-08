@@ -1,0 +1,70 @@
+DROP TABLE IF EXISTS Suppliers;
+DROP TABLE IF EXISTS Produce;
+DROP TABLE IF EXISTS Inventory;
+DROP TABLE IF EXISTS Recipes;
+DROP TABLE IF EXISTS Addresses;
+DROP TABLE IF EXISTS AddressTypes;
+DROP TABLE IF EXISTS SupplierAddresses;
+
+PRAGMA foreign_keys = 1;
+
+CREATE TABLE
+    IF NOT EXISTS Suppliers (
+        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+        Name TEXT NOT NULL,
+        Contact_Person TEXT NOT NULL,
+        Phone TEXT NOT NULL,
+        Email TEXT
+    );
+
+CREATE TABLE
+    IF NOT EXISTS Produce (
+        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+        SuppliersId INTEGER NOT NULL,
+        Article_Number TEXT,
+        Product_Name TEXT NOT NULL,
+        Unit_Price_Kg FLOAT NOT NULL,
+        FOREIGN KEY (SuppliersId) REFERENCES Suppliers (Id)
+    );
+
+CREATE TABLE
+    IF NOT EXISTS Inventory (
+        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+        quantity_in_stock FLOAT NOT NULL DEFAULT 0,
+        restock_point FLOAT NOT NULL DEFAULT 30,
+        FOREIGN KEY (Id) REFERENCES Produce (Id)
+    );
+
+CREATE TABLE
+    IF NOT EXISTS Recipes (
+        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+        Ingredients TEXT NOT NULL,
+        Name TEXT NOT NULL, 
+        FOREIGN KEY (Id) REFERENCES Inventory (Id)
+    );
+
+CREATE TABLE
+    IF NOT EXISTS Addresses (
+        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+        Address TEXT NOT NULL UNIQUE,
+        PostalCode TEXT NOT NULL,
+        City TEXT NOT NULL
+    );
+
+
+CREATE TABLE
+    IF NOT EXISTS AddressTypes (
+        Id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        AddressType TEXT NOT NULL UNIQUE
+        );
+
+CREATE TABLE
+    IF NOT EXISTS SupplierAddresses (
+        SupplierId INTEGER NOT NULL,
+        AddressId INTEGER NOT NULL,
+        AddressTypeId INTEGER NOT NULL,
+        PRIMARY KEY (SupplierId, AddressId, AddressTypeId), -- Kolla om detta är korrekt sätt att göra
+        FOREIGN KEY(SupplierId) REFERENCES Suppliers(Id),
+        FOREIGN KEY(AddressId) REFERENCES Addresses(Id),
+        FOREIGN KEY(AddressTypeId) REFERENCES AddressTypes(Id)
+    );

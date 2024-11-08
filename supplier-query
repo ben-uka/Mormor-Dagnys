@@ -1,0 +1,15 @@
+SELECT 
+    Suppliers.Id AS SupplierId,
+    Suppliers.Name,
+    Addresses.Address,
+    Addresses.PostalCode,
+    Addresses.City,
+    AddressTypes.AddressType
+FROM 
+    Suppliers
+INNER JOIN 
+    SupplierAddresses ON Suppliers.Id = SupplierAddresses.SupplierId
+INNER JOIN 
+    Addresses ON SupplierAddresses.AddressId = Addresses.Id
+INNER JOIN 
+    AddressTypes ON SupplierAddresses.AddressTypeId = AddressTypes.Id;
